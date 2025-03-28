@@ -192,9 +192,12 @@ func (k Keeper) RecvPacket(
 		return errorsmod.Wrap(err, "couldn't verify counterparty packet commitment")
 	}
 
-	if err := k.applyReplayProtection(ctx, packet, channel); err != nil {
-		return err
-	}
+	k.Logger(ctx).Warn("!! SKIPPING REPLAY PROTECTION !!")
+
+	// REMOVED FOR NOBLE NIGHTLY REPLAY
+	// if err := k.applyReplayProtection(ctx, packet, channel); err != nil {
+	// 	return err
+	// }
 
 	// log that a packet has been received & executed
 	k.Logger(ctx).Info(
